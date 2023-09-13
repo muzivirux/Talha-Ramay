@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>JM Utility Form</title>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+    <link rel="icon" href="./images/favico.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+</head>
+
+<body>
+
+    <!-- Logo -->
+    <div class="logo">
+        <a href="https://rafiqfarmfoods.com/" target="_blank">
+            <img id="logoImg" src="./images/rff.png">
+        </a>
+    </div>
+
+    <!-- Form -->
+    <h1>JM Utility Form</h1>
+    <div id="line"></div>
+    <form id="JMUtilityForm">
+        <div class="sections">
+
+            <h2>RO Plant</h1>
+                <label for="RSD">Total running hours /day:</label>
+                <div class="RSD">
+                    <input type="text" class="time-input" id="availability-duration"
+                        name="RO Plant Total running hours/day" placeholder="HH:MM"
+                         required>
+
+                    <!-- <label for="RSD">Remarks:</label> -->
+                    <input type="text" id="remarksPlant" name="Ro Plant Remarks" required placeholder="Remarks">
+                </div>
+        </div>
+
+        <div class="sections">
+            <h2>RO Water Supply Pump</h1>
+                <label for="RSD">Total running hours /day:</label>
+                <div class="RSD">
+
+                    <input type="text" class="time-input" id="availability-duration"
+                        name="RO Water Supply Pump Total running hours/day" placeholder="HH:MM"
+                        required>
+
+                    <!-- <label for="RSD">Remarks:</label> -->
+                    <input type="text" id="remarksPlantROPump" name="RO Water Supply Pump Remarks" required
+                        placeholder="Remarks">
+                </div>
+        </div>
+
+
+
+        <div class="sections">
+            <h2>Raw Water Supply Pump</h1>
+                <label for="RSD">Total running hours /day:</label>
+                <div class="RSD">
+
+                    <input type="text" class="time-input" id="availability-duration"
+                        name="Raw Water Supply Pump running hours/day" placeholder="HH:MM"
+                         required>
+
+                    <!-- <label for="RSD">Remarks:</label> -->
+                    <input type="text" id="remarksRawPump" name="Raw Water Supply Pump Remarks" required
+                        placeholder="Remarks">
+                </div>
+        </div>
+        <div class="sections">
+            <h2>Thermal Boiler Consumption</h1>
+                <label for="RSD" class="label">Total running hours /day:</label>
+                <div class="RSD">
+
+                    <input type="text" class="time-input" id="availability-duration"
+                        name="Thermal Boiler Consumption running hours/day" placeholder="HH:MM"
+                         required>
+
+                    <label for="RSD">Diesel storage:</label>
+                    <input type="number" id="dieselConsumptionStorage"
+                        name="Thermal Boiler Consumption Diesel Consumption storage" placeholder="Diesel storage"
+                        min="0" required>
+
+                    <label for="RSD">Diesel Usage:</label>
+                    <input type="number" id="dieselConsumptionUsage"
+                        name="Thermal Boiler Consumption Diesel Consumption Usage" placeholder="Diesel Usage" min="0"
+                        required>
+
+                    <label for="RSD">Diesel Remaining:</label>
+                    <input type="number" id="dieselConsumptionRemaining"
+                        name="Thermal Boiler Consumption Diesel Consumption Remaining" placeholder="Diesel Remaining"
+                        readonly>
+
+                    <label for="RSD">Remarks:</label>
+                    <input type="text" id="dieselConsumptionRemarks" name="Thermal Boiler Consumption Remarks"
+                        placeholder="Remarks" required>
+                </div>
+        </div>
+
+        <div class="sections">
+            <h2>Submersible Water Turbine</h2>
+            <label for="totalrunningtime">Total running time</label>
+
+            <input type="text" class="time-input" id="availability-duration"
+                name="Submersible water Turbine Total running time" placeholder="HH:MM"
+                 required>
+
+
+            <!-- <label for="Submersibleremarks">Remarks</label> -->
+            <input type="text" required id="Submersibleremarks" name="Submersible Water Tubine Remarks" required
+                placeholder="Remarks">
+        </div>
+
+
+        <input type="submit" value="Submit">
+
+    </form>
+
+    <!-- spinner html -->
+    <div class="spinner-container">
+        <div class="spinner"></div>
+    </div>
+    <!-- end of spinner html -->
+
+    <!-- Add the modal HTML code -->
+    <div id="myModal" class="modal">
+        <span class="close">&times;</span>
+        <div class="modal-content">
+            <p id="modal-message"></p>
+            <button id="closeBtn">Close</button>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>Copyright &copy; <a href="https://rafiqfarmfoods.com/" target="_blank"> Rafiq Farm Foods </a>| All Right
+            Reserved. </p>
+    </footer>
+    <!-- end of Footer -->
+
+
+    <!-- JavaScript -->
+    <script>
+
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbyOPIL_It_YOVDnVp5pBrBiDtOWVPPFU3OsDSiNzWKKVv-dFdl-ZbhIZMTnv1FbuXRCtw/exec';
+        const form = document.getElementById("JMUtilityForm");
+
+        // modal javascript
+        // Get the modal element, the close button, and the close button inside the modal
+        const modal = document.getElementById("myModal");
+        const closeBtn = document.querySelector(".close");
+        const modalCloseBtn = document.getElementById("closeBtn");
+
+
+        form.addEventListener('submit', e => {
+            e.preventDefault();
+            modal.style.display = "block";
+            fetch(scriptURL, { method: 'POST', body: new FormData(form) })
+                .then(response => {
+                    hideSpinner(); // Hide the spinner
+                    document.getElementById("modal-message").textContent = 'Success!';
+                })
+                .catch(error => {
+                    hideSpinner(); // Hide the spinner
+                    document.getElementById("modal-message").textContent = 'Error! ' + error.message;
+                });
+        });
+        // Close the modal when the close button is clicked
+        closeBtn.addEventListener("click", () => {
+            modal.style.display = "none";
+        });
+        // Close the modal when the close button inside the modal is clicked
+        modalCloseBtn.addEventListener("click", () => {
+            modal.style.display = "none";
+        });
+
+    </script>
+
+
+    <!-- reseting form after submitting -->
+    <script>
+        document.getElementById('JMUtilityForm').addEventListener('submit', function (event) {
+            event.preventDefault(); // Prevent the default form submission
+
+            this.reset();
+
+
+
+
+        });
+
+    </script>
+    <!-- end of for reseting after submitting -->
+
+    <script>
+        // Function to show the spinner
+        function showSpinner() {
+            const spinnerContainer = document.querySelector(".spinner-container");
+            spinnerContainer.style.display = "flex";
+            modal.style.display = "none";
+        }
+
+        // Function to hide the spinner
+        function hideSpinner() {
+            const spinnerContainer = document.querySelector(".spinner-container");
+            spinnerContainer.style.display = "none";
+            modal.style.display = "block";
+        }
+
+        // Function to handle form submission
+        function handleSubmit(event) {
+            event.preventDefault();
+            showSpinner(); // Show the spinner
+
+
+        }
+
+        // Add event listener to form submit
+
+        form.addEventListener("submit", handleSubmit);
+    </script>
+    <!-- end of spinner -->
+
+
+
+    <!-- check time validations -->
+    <script>
+     // Function to validate the duration input
+     function validateDurationInput(inputElement) {
+            inputElement.addEventListener('change', function () {
+                inputElement.setCustomValidity('');
+                var value = inputElement.value;
+                var timeParts = value.split(':');
+
+                // Check if the input is in the format HH:MM or HH
+                if (timeParts.length === 2) {
+                    var hours = parseInt(timeParts[0]);
+                    var minutes = parseInt(timeParts[1]);
+
+                    if (isNaN(hours) || isNaN(minutes) || hours > 24 || (hours === 24 && minutes !== 0) || minutes >= 60) {
+                        inputElement.setCustomValidity('Please enter a valid duration in HH:MM format with hours under 24 and minutes under 60.');
+                    }
+                } else if (timeParts.length === 1) {
+                    var hoursOnly = parseInt(timeParts[0]);
+
+                    if (isNaN(hoursOnly) || hoursOnly > 24) {
+                        inputElement.setCustomValidity('Please enter a valid duration in HH:MM format with hours under 24.');
+                    }
+                } else {
+                    inputElement.setCustomValidity('Please enter a valid duration in HH:MM format or hours only.');
+                }
+            });
+        }
+
+        // Get the input elements and validate them
+        var durationInputs = document.querySelectorAll('.time-input');
+        durationInputs.forEach(function (input) {
+            validateDurationInput(input);
+        });
+
+
+
+
+
+
+        // auto add colon : between HH and MM
+        document.addEventListener('DOMContentLoaded', function () {
+            const timeInputs = document.querySelectorAll('.time-input');
+
+            timeInputs.forEach(function (inputElement) {
+                inputElement.addEventListener('input', function (event) {
+                    const inputValue = event.target.value.trim();
+
+                    // Check if the input value has reached 2 characters (HH)
+                    if (inputValue.length === 2 && !inputValue.includes(':')) {
+                        // Add the colon ':' after the HH part
+                        event.target.value = inputValue + ':';
+                    }
+                });
+            });
+        });
+    </script>
+    <!-- End of check time validations -->
+
+    <!-- auto update Diesel remaining -->
+    <script>
+        const dieselStorageInput = document.getElementById('dieselConsumptionStorage');
+        const dieselUsageInput = document.getElementById('dieselConsumptionUsage');
+        const dieselRemainingInput = document.getElementById('dieselConsumptionRemaining');
+
+        // Function to update Diesel Remaining
+        function updateDieselRemaining() {
+            const dieselStorage = parseFloat(dieselStorageInput.value);
+            const dieselUsage = parseFloat(dieselUsageInput.value);
+            const dieselRemaining = dieselStorage - dieselUsage;
+
+            // Check if the remaining diesel is negative, set it to 0 in that case
+            dieselRemainingInput.value = Math.max(0, dieselRemaining);
+        }
+
+        // Add event listeners to Diesel Storage and Diesel Usage inputs
+        dieselStorageInput.addEventListener('input', updateDieselRemaining);
+        dieselUsageInput.addEventListener('input', updateDieselRemaining);
+    </script>
+</body>
+
+</html>
