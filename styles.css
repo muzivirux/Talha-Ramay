@@ -40,27 +40,46 @@ body {
 h1 {
   text-align: center;
   font-weight: 400;
-  margin-top: 7rem;
+  margin-top: 8rem;
+}
+
+h2 {
+  margin-top: 1rem;
+  cursor: pointer;
+}
+h3 {
+  padding-top: 1rem;
 }
 
 form {
   max-width: 600px;
   margin: 4rem auto;
   position: relative;
+  display: flex;
+  flex-direction: column;
 }
-
+.labelflx {
+  display: flex;
+  gap: 17rem;
+  margin-top: 1rem;
+}
+.wrapper {
+  width: 100%;
+}
+.container {
+  display: flex;
+  gap: 17rem;
+  margin-top: 1rem;
+}
 label {
   display: block;
-  margin-top: 10px;
-}
-#dieselConsumptionRemaining {
-  /* background-color: #189ab4; */
-  font-weight: 700;
-  opacity: 0.7;
+  margin-top: 1rem;
 }
 select,
 input[type="text"],
 input[type="number"],
+input[type="date"],
+input[type="time"],
 textarea {
   width: 100%;
   padding: 12px;
@@ -70,7 +89,8 @@ textarea {
   outline: none;
   color: #1a1a1a;
   background-color: #f8c807;
-  margin-top: 1rem;
+  margin-top: 2px;
+  transition: all 0.3s;
 }
 #phone {
   width: 100%;
@@ -82,7 +102,7 @@ textarea {
 }
 
 input[type="submit"] {
-  margin-top: 1rem;
+  margin-top: 2rem;
   background-color: #1a1a1a;
   color: #f8c807;
   border: none;
@@ -96,6 +116,10 @@ input[type="submit"]:hover {
   color: #e88228;
 }
 
+.RSD {
+  display: flex;
+  gap: 1rem;
+}
 /* dropdown */
 
 .options li {
@@ -338,6 +362,13 @@ li.selected {
   spline-viewer {
     display: none;
   }
+  .RSD {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  html {
+    font-size: 85%;
+  }
 }
 @media (max-width: 375px) {
   #logoImg {
@@ -345,9 +376,7 @@ li.selected {
     right: 0;
     transition: all 0.6s;
   }
-  html {
-    font-size: 65%;
-  }
+
   #locationBtn {
     font-size: 1rem;
   }
